@@ -10,14 +10,20 @@ import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
 import React from "react";
 import useUpdateTodo from "../hooks/useUpdateTodo.js";
 import { LoadingButton } from "@mui/lab";
+import useDeleteTodo from "../hooks/useDeleteTodo.js";
 
 const Todo = ({ todo, setTodos }) => {
-  const { title, description, isCompleted } = todo;
+  const { _id, title, description, isCompleted } = todo;
 
   const { updateTodo, isUpdatingTodo } = useUpdateTodo(setTodos);
+  const { deleteTodo, isDeletingTodo } = useDeleteTodo(setTodos);
 
   const handleUpdate = async (todo) => {
     await updateTodo(todo);
+  };
+
+  const handleDelete = async (id) => {
+    await deleteTodo(id);
   };
 
   return (
@@ -63,14 +69,15 @@ const Todo = ({ todo, setTodos }) => {
           >
             Mark as Done
           </LoadingButton>
-          <Button
+          <LoadingButton
             size="medium"
             variant="contained"
             color="error"
-            // onClick={() => setCompleted(true)}
+            loading={isDeletingTodo}
+            onClick={() => handleDelete(_id)}
           >
             <Trash2 />
-          </Button>
+          </LoadingButton>
         </CardActions>
       </Stack>
     </Card>
