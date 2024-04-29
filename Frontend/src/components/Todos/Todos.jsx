@@ -20,9 +20,9 @@ const Todos = () => {
   let [todos, setTodos] = useState([]);
   let [newTodoTitle, setNewTodoTitle] = useState("");
   let [newTodoDescription, setNewTodoDescription] = useState("");
+  let [numOfPages, setNumOfPages] = useState(10);
   let [page, setPage] = useState(1);
   let [limit, setLimit] = useState(5);
-  let [numOfPages, setNumOfPages] = useState(10);
 
   const { fetchTodos, isFetchingTodos } = useGetTodos(setTodos, setNumOfPages);
   const { addTodo, isAddingTodo, isAdded } = useAddTodos(setTodos);
@@ -39,6 +39,7 @@ const Todos = () => {
   const handleLimitChange = (e, { props }) => {
     const limit = props.value;
     setLimit(limit);
+    setPage(1);
   };
 
   const isValidateInputs =
@@ -51,13 +52,16 @@ const Todos = () => {
   ));
 
   useEffect(() => {
+    fetchTodos(page, limit);
+  }, [page, limit]);
+
+  useEffect(() => {
     if (isAdded) {
       setNewTodoDescription("");
       setNewTodoTitle("");
       CustomSuccessAlert("New Todo added successfully");
     }
-    fetchTodos(page, limit);
-  }, [isAdded, page, limit]);
+  }, [isAdded]);
 
   if (isFetchingTodos) return <Loader />;
   return (
