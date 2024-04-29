@@ -7,12 +7,18 @@ import {
   Typography,
 } from "@mui/material";
 import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
+import useUpdateTodo from "../hooks/useUpdateTodo.js";
+import { LoadingButton } from "@mui/lab";
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, setTodos }) => {
   const { title, description, isCompleted } = todo;
 
-  let [completed, setCompleted] = useState(isCompleted);
+  const { updateTodo, isUpdatingTodo } = useUpdateTodo(setTodos);
+
+  const handleUpdate = async (todo) => {
+    await updateTodo(todo);
+  };
 
   return (
     <Card sx={{ maxWidth: 250 }}>
@@ -37,10 +43,10 @@ const Todo = ({ todo }) => {
           </Typography>
           <Typography
             variant="body1"
-            color={completed ? "green" : "red"}
+            color={isCompleted ? "green" : "red"}
             sx={{ position: "absolute", top: 5, left: 5 }}
           >
-            {completed ? (
+            {isCompleted ? (
               <CircleCheckBig color="rgb(103, 172, 0)" />
             ) : (
               <Circle color="rgb(184, 184, 184)" />
@@ -48,19 +54,20 @@ const Todo = ({ todo }) => {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Button
+          <LoadingButton
             size="medium"
             variant="contained"
-            disabled={completed}
-            onClick={() => setCompleted(true)}
+            disabled={isCompleted}
+            loading={isUpdatingTodo}
+            onClick={() => handleUpdate(todo)}
           >
             Mark as Done
-          </Button>
+          </LoadingButton>
           <Button
             size="medium"
             variant="contained"
             color="error"
-            onClick={() => setCompleted(true)}
+            // onClick={() => setCompleted(true)}
           >
             <Trash2 />
           </Button>

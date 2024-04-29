@@ -6,6 +6,7 @@ import useGetTodos from "./hooks/useGetTodos.js";
 import { LoadingButton } from "@mui/lab";
 import useAddTodos from "./hooks/useAddTodo.js";
 import { CustomSuccessAlert } from "../../utils/general.js";
+import useUpdateTodo from "./hooks/useUpdateTodo.js";
 
 const Todos = () => {
   let [todos, setTodos] = useState([]);
@@ -21,7 +22,7 @@ const Todos = () => {
     if (isAdded) {
       setNewTodoDescription("");
       setNewTodoTitle("");
-      CustomSuccessAlert("New Todo Added");
+      CustomSuccessAlert("New Todo added successfully");
     }
   };
 
@@ -30,7 +31,7 @@ const Todos = () => {
 
   const renderTodos = todos?.map((todo) => (
     <Grid key={todo._id} item xs={2.4}>
-      <Todo todo={todo} />
+      <Todo todo={todo} setTodos={setTodos} />
     </Grid>
   ));
 
@@ -64,7 +65,7 @@ const Todos = () => {
               ? "Title must be at least 10 characters"
               : ""
           }
-          sx={{ width: "35%" }}
+          sx={{ width: "30%" }}
         />
         <TextField
           id="description"
@@ -81,7 +82,7 @@ const Todos = () => {
               ? "Description must be at least 15 characters"
               : ""
           }
-          sx={{ width: "35%" }}
+          sx={{ flexGrow: 1 }}
         />
         <LoadingButton
           loading={isAddingTodo}
