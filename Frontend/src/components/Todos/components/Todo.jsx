@@ -6,10 +6,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
 import React, { useState } from "react";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import PanoramaFishEyeIcon from "@mui/icons-material/PanoramaFishEye";
-import { Trash2 } from "lucide-react";
 
 const Todo = ({ todo }) => {
   const { title, description, isCompleted } = todo;
@@ -40,12 +38,12 @@ const Todo = ({ todo }) => {
           <Typography
             variant="body1"
             color={completed ? "green" : "red"}
-            sx={{ position: "absolute", top: 3, left: 3 }}
+            sx={{ position: "absolute", top: 5, left: 5 }}
           >
             {completed ? (
-              <CheckCircleOutlineIcon sx={{ color: "rgb(139, 216, 23)" }} />
+              <CircleCheckBig color="rgb(103, 172, 0)" />
             ) : (
-              <PanoramaFishEyeIcon sx={{ color: "rgb(184, 184, 184)" }} />
+              <Circle color="rgb(184, 184, 184)" />
             )}
           </Typography>
         </CardContent>
