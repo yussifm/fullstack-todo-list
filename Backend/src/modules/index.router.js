@@ -1,5 +1,5 @@
 import connectDb from "../../DB/connection.js";
-// import noteRouter from "./notes/note.router.js";
+import todoRouter from "./todos/todo.router.js";
 import cors from "cors";
 
 const initApp = async (app, express) => {
@@ -10,7 +10,7 @@ const initApp = async (app, express) => {
   connectDb();
   app.use(cors(corsOptions));
   app.use(express.json());
-  //   app.use("/notes", noteRouter);
+  app.use("/todos", todoRouter);
 };
 
 export default initApp;
