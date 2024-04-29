@@ -4,7 +4,7 @@ import cors from "cors";
 
 const initApp = async (app, express) => {
   const corsOptions = {
-    origin: "localhost:5173/",
+    origin: "*",
     optionsSuccessStatus: 200,
   };
   connectDb();
