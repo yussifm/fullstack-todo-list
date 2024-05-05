@@ -27,7 +27,7 @@ const useAddTodos = (setTodos) => {
       setTodos((prevTodos) => [...prevTodos, data.todo]);
       setIsAdded(true);
     } catch (error) {
-      console.error("Failed to add todo:", error);
+      CustomErrorAlert(error);
     } finally {
       setIsLoading(false);
     }

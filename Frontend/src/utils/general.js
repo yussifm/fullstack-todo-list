@@ -5,10 +5,7 @@ export const theme = createTheme({
   components: {
     MuiAppBar: {
       styleOverrides: {
-        root: {
-          // backgroundColor: "#fff",
-          // color: "#000",
-        },
+        root: {},
       },
     },
   },
@@ -29,6 +26,19 @@ export const CustomSuccessAlert = (message) => {
 
 export const CustomWarningAlert = (message) => {
   toast.warning(message, {
+    position: "top-left",
+    autoClose: true,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+};
+
+export const CustomErrorAlert = (message) => {
+  toast.error(message, {
     position: "top-left",
     autoClose: true,
     hideProgressBar: false,

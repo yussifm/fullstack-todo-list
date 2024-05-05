@@ -46,7 +46,7 @@ const Todos = () => {
     newTodoTitle.length < 10 || newTodoDescription.length < 15;
 
   const renderTodos = todos?.map((todo) => (
-    <Grid key={todo._id} item xs={2.4}>
+    <Grid key={todo._id} item xl={2.4}>
       <Todo todo={todo} setTodos={setTodos} />
     </Grid>
   ));

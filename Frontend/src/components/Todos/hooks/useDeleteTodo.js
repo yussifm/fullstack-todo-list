@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CustomErrorAlert } from "../../../utils/general.js";
 
 const useDeleteTodo = (setTodos) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,7 @@ const useDeleteTodo = (setTodos) => {
 
       setTodos((prevTodos) => prevTodos.filter((item) => item._id !== id));
     } catch (error) {
-      console.error("Failed to add todo:", error);
+      CustomErrorAlert(error);
     } finally {
       setIsLoading(false);
     }
