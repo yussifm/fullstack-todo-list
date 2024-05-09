@@ -1,6 +1,8 @@
 import { createTheme } from "@mui/material";
 import { toast } from "react-toastify";
 
+export const defaultTodo = { title: "", description: "" };
+
 export const theme = createTheme({
   components: {
     MuiAppBar: {

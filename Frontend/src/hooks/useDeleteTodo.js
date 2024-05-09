@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { CustomErrorAlert } from "../../../utils/general.js";
+import { CustomErrorAlert } from "../utils/general.js";
 
-const useDeleteTodo = (setTodos) => {
+const useDeleteTodo = (fetchTodos, page, limit) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const deleteTodo = async (id) => {
@@ -21,7 +21,7 @@ const useDeleteTodo = (setTodos) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setTodos((prevTodos) => prevTodos.filter((item) => item._id !== id));
+      await fetchTodos(page, limit);
     } catch (error) {
       CustomErrorAlert(error);
     } finally {

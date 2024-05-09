@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CustomErrorAlert } from "../../../utils/general.js";
+import { CustomErrorAlert } from "../utils/general.js";
 
 const useGetTodos = (setTodos, setNumOfPages) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,6 +12,7 @@ const useGetTodos = (setTodos, setNumOfPages) => {
       const data = await response.json();
       setTodos(data.todos);
       setNumOfPages(data.numOfPages);
+      if (page > data.numOfPages) setPage(data.numOfPages);
     } catch (error) {
       CustomErrorAlert(error);
     } finally {

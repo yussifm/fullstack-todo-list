@@ -1,11 +1,10 @@
 import { useState } from "react";
+import { CustomSuccessAlert, defaultTodo } from "../utils/general.js";
 
-const useAddTodos = (setTodos) => {
+const useAddTodos = (fetchTodos, page, limit, setNewTodo) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
 
   const addTodo = async (todo) => {
-    setIsAdded(false);
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -23,9 +22,9 @@ const useAddTodos = (setTodos) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      setTodos((prevTodos) => [...prevTodos, data.todo]);
-      setIsAdded(true);
+      await fetchTodos(page, limit);
+      setNewTodo(defaultTodo);
+      CustomSuccessAlert("New Todo added successfully");
     } catch (error) {
       CustomErrorAlert(error);
     } finally {
@@ -33,7 +32,7 @@ const useAddTodos = (setTodos) => {
     }
   };
 
-  return { addTodo, isAddingTodo: isLoading, isAdded };
+  return { addTodo, isAddingTodo: isLoading };
 };
 
 export default useAddTodos;

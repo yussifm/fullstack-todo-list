@@ -8,15 +8,15 @@ import {
 } from "@mui/material";
 import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
 import React from "react";
-import useUpdateTodo from "../hooks/useUpdateTodo.js";
+import useUpdateTodo from "../../../hooks/useUpdateTodo.js";
 import { LoadingButton } from "@mui/lab";
-import useDeleteTodo from "../hooks/useDeleteTodo.js";
+import useDeleteTodo from "../../../hooks/useDeleteTodo.js";
 
-const Todo = ({ todo, setTodos }) => {
+const Todo = ({ todo, fetchTodos, page, limit, setTodos }) => {
   const { _id, title, description, isCompleted } = todo;
 
   const { updateTodo, isUpdatingTodo } = useUpdateTodo(setTodos);
-  const { deleteTodo, isDeletingTodo } = useDeleteTodo(setTodos);
+  const { deleteTodo, isDeletingTodo } = useDeleteTodo(fetchTodos, page, limit);
 
   const handleUpdate = async (todo) => {
     await updateTodo(todo);
