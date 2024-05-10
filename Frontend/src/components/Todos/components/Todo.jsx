@@ -1,5 +1,5 @@
+import { LoadingButton } from "@mui/lab";
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -9,21 +9,19 @@ import {
 import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
 import React from "react";
 import useUpdateTodo from "../../../hooks/useUpdateTodo.js";
-import { LoadingButton } from "@mui/lab";
-import useDeleteTodo from "../../../hooks/useDeleteTodo.js";
 
-const Todo = ({ todo, fetchTodos, page, limit, setTodos }) => {
+const Todo = ({ todo, setTodos, setTodoToDelete, handleOpenDeleteDialog }) => {
   const { _id, title, description, isCompleted } = todo;
 
   const { updateTodo, isUpdatingTodo } = useUpdateTodo(setTodos);
-  const { deleteTodo, isDeletingTodo } = useDeleteTodo(fetchTodos, page, limit);
 
   const handleUpdate = async (todo) => {
     await updateTodo(todo);
   };
 
-  const handleDelete = async (id) => {
-    await deleteTodo(id);
+  const handleDelete = async (todo) => {
+    setTodoToDelete(todo);
+    handleOpenDeleteDialog();
   };
 
   return (
@@ -63,18 +61,16 @@ const Todo = ({ todo, fetchTodos, page, limit, setTodos }) => {
           <LoadingButton
             size="medium"
             variant="contained"
-            disabled={isCompleted}
             loading={isUpdatingTodo}
             onClick={() => handleUpdate(todo)}
           >
-            Mark as Done
+            {isCompleted ? "Undo" : "Mark as Done"}
           </LoadingButton>
           <LoadingButton
             size="medium"
             variant="contained"
             color="error"
-            loading={isDeletingTodo}
-            onClick={() => handleDelete(_id)}
+            onClick={() => handleDelete(todo)}
           >
             <Trash2 />
           </LoadingButton>

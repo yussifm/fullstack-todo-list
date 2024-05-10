@@ -8,10 +8,13 @@ import {
   Select,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Loader from "../Loader";
-import Todo from "./components/Todo.jsx";
+import useDeleteTodo from "../../hooks/useDeleteTodo.js";
 import useGetTodos from "../../hooks/useGetTodos.js";
 import AddTodoForm from "../AddTodoForm";
+import DeleteConfirmationDialog from "../Dialogs/DeleteConfirmationDialog.jsx";
+import Loader from "../Loader";
+import Todo from "./components/Todo.jsx";
+import { defaultTodo } from "../../utils/general.js";
 
 const Todos = () => {
   let [todos, setTodos] = useState([]);
@@ -19,7 +22,15 @@ const Todos = () => {
   let [page, setPage] = useState(1);
   let [limit, setLimit] = useState(5);
 
-  const { fetchTodos, isFetchingTodos } = useGetTodos(setTodos, setNumOfPages);
+  let [todoToDelete, setTodoToDelete] = useState(defaultTodo);
+  const [openCancelDialog, setOpenCancelDialog] = useState(false);
+
+  const { fetchTodos, isFetchingTodos } = useGetTodos(
+    setTodos,
+    setNumOfPages,
+    setPage
+  );
+  const { deleteTodo, isDeletingTodo } = useDeleteTodo(fetchTodos, page, limit);
 
   const handlePageChange = (e, value) => {
     setPage(value);
@@ -32,14 +43,27 @@ const Todos = () => {
     fetchTodos(page, limit);
   };
 
+  const handleDeleteTodo = async () => {
+    const status = await deleteTodo(todoToDelete._id);
+    if (status) setOpenCancelDialog(false);
+  };
+
+  const handleCancelDeleteTodo = () => {
+    setTodoToDelete(defaultTodo);
+    setOpenCancelDialog(false);
+  };
+
+  const handleClose = () => {
+    setOpenCancelDialog(false);
+  };
+
   const renderTodos = todos?.map((todo) => (
     <Grid key={todo._id} item xl={2.4}>
       <Todo
         todo={todo}
         setTodos={setTodos}
-        fetchTodos={fetchTodos}
-        page={page}
-        limit={limit}
+        setTodoToDelete={setTodoToDelete}
+        handleOpenDeleteDialog={() => setOpenCancelDialog(true)}
       />
     </Grid>
   ));
@@ -126,6 +150,14 @@ const Todos = () => {
           onChange={handlePageChange}
         />
       </Box>
+      <DeleteConfirmationDialog
+        openCancelDialog={openCancelDialog}
+        todoToDeleteTitle={todoToDelete.title}
+        isDeletingTodo={isDeletingTodo}
+        handleCancelDeleteTodo={handleCancelDeleteTodo}
+        handleDeleteTodo={handleDeleteTodo}
+        handleClose={handleClose}
+      />
     </Box>
   );
 };

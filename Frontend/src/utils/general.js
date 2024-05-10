@@ -1,7 +1,12 @@
 import { createTheme } from "@mui/material";
 import { toast } from "react-toastify";
 
-export const defaultTodo = { title: "", description: "" };
+export const defaultTodo = {
+  _id: "",
+  title: "",
+  description: "",
+  isCompleted: false,
+};
 
 export const theme = createTheme({
   components: {

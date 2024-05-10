@@ -3,6 +3,7 @@ import { CustomErrorAlert } from "../utils/general.js";
 
 const useDeleteTodo = (fetchTodos, page, limit) => {
   const [isLoading, setIsLoading] = useState(false);
+  let status = false;
 
   const deleteTodo = async (id) => {
     try {
@@ -20,13 +21,14 @@ const useDeleteTodo = (fetchTodos, page, limit) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+      status = response.ok;
       await fetchTodos(page, limit);
     } catch (error) {
       CustomErrorAlert(error);
     } finally {
       setIsLoading(false);
     }
+    return status;
   };
 
   return { deleteTodo, isDeletingTodo: isLoading };

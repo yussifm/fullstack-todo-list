@@ -14,7 +14,7 @@ const useUpdateTodo = (setTodos) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ isCompleted: true }),
+          body: JSON.stringify({ isCompleted: !todo.isCompleted }),
         }
       );
 
@@ -24,7 +24,9 @@ const useUpdateTodo = (setTodos) => {
 
       setTodos((prevTodos) =>
         prevTodos.map((item) =>
-          item._id === todo._id ? { ...todo, isCompleted: true } : item
+          item._id === todo._id
+            ? { ...todo, isCompleted: !todo.isCompleted }
+            : item
         )
       );
     } catch (error) {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CustomErrorAlert } from "../utils/general.js";
 
-const useGetTodos = (setTodos, setNumOfPages) => {
+const useGetTodos = (setTodos, setNumOfPages, setPage) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchTodos = async (page, limit) => {
