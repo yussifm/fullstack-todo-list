@@ -1,4 +1,3 @@
-import { createTheme } from "@mui/material";
 import { toast } from "react-toastify";
 
 export const defaultTodo = {
@@ -7,16 +6,6 @@ export const defaultTodo = {
   description: "",
   isCompleted: false,
 };
-
-export const theme = createTheme({
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        root: {},
-      },
-    },
-  },
-});
 
 export const CustomSuccessAlert = (message) => {
   toast.success(message, {

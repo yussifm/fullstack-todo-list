@@ -11,7 +11,7 @@ import React from "react";
 import useUpdateTodo from "../../../hooks/useUpdateTodo.js";
 
 const Todo = ({ todo, setTodos, setTodoToDelete, handleOpenDeleteDialog }) => {
-  const { _id, title, description, isCompleted } = todo;
+  const { title, description, isCompleted } = todo;
 
   const { updateTodo, isUpdatingTodo } = useUpdateTodo(setTodos);
 
@@ -25,7 +25,7 @@ const Todo = ({ todo, setTodos, setTodoToDelete, handleOpenDeleteDialog }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 250 }}>
+    <Card sx={{ width: 250 }}>
       <Stack justifyContent={"space-between"} boxSizing={"border-box"}>
         <CardContent
           sx={{

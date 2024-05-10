@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { CustomSuccessAlert, defaultTodo } from "../utils/general.js";
+import {
+  CustomSuccessAlert,
+  CustomErrorAlert,
+  defaultTodo,
+} from "../utils/general.js";
 
 const useAddTodos = (fetchTodos, page, limit, setNewTodo) => {
   const [isLoading, setIsLoading] = useState(false);
