@@ -5,6 +5,7 @@ const useGetTodos = (setTodos, setNumOfPages, setPage) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchTodos = async (page, limit) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://fullstack-todolist-upnv.onrender.com/todos?page=${page}&limit=${limit}`
