@@ -3,9 +3,18 @@ import { Box, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { defaultTodo } from "../../utils/general.js";
 import useAddTodo from "../../hooks/useAddTodo.js";
+import axios from "axios";
 
 const AddTodoForm = ({ fetchTodos, page, limit }) => {
-  let [newTodo, setNewTodo] = useState(defaultTodo);
+  // let [newTodo, setNewTodo] = useState(defaultTodo);
+  let [newTodo, setNewTodo] = useState({
+    "title": "",
+    "description": "",
+    "activity": "",
+    "date": "",
+    "strStatus": ""
+  });
+
   const { addTodo, isAddingTodo } = useAddTodo(
     fetchTodos,
     page,
@@ -17,8 +26,18 @@ const AddTodoForm = ({ fetchTodos, page, limit }) => {
     newTodo.title.length < 10 || newTodo.description.length < 15;
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await addTodo({ ...newTodo });
+    try {
+      e.preventDefault();
+      const resp1 = await addTodo({ ...newTodo });
+      console.log("newTodo display");
+
+      const resp = axios.post("http://localhost:3000/api/todos", newTodo);
+      console.log(resp);
+    }
+    catch (ex) {
+      console.log("catch me ", ex);
+      // console.log(ex);
+    }
   };
 
   return (

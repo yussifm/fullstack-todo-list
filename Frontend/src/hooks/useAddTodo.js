@@ -12,7 +12,7 @@ const useAddTodos = (fetchTodos, page, limit, setNewTodo) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://fullstack-todolist-upnv.onrender.com/todos",
+        "http://localhost:3000/api/todos",
         {
           method: "POST",
           headers: {
