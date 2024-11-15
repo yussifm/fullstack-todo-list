@@ -4,8 +4,12 @@ export const getTodos = async (req, res) => {
   const { page = 1, limit = 3, title = "" } = req.query;
 
   try {
+    // const totalCount = await TodoModel.countDocuments({
+    //   title: { $regex: title, $options: "i" },
+    // });
+
     const totalCount = await TodoModel.countDocuments({
-      title: { $regex: title, $options: "i" },
+      //title: { $regex: title, $options: "i" },
     });
 
     const numOfPages = Math.ceil(totalCount / limit);
@@ -20,6 +24,7 @@ export const getTodos = async (req, res) => {
 
     return res.status(200).json({ todos, numOfPages });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
