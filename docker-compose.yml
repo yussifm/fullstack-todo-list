@@ -1,34 +1,27 @@
-# docker-compose.yml
 version: '3.8'
 services:
   frontend:
-    build: ./frontend
+    build: ./Frontend
     ports:
       - "80:80"
     depends_on:
       - backend
 
   backend:
-    build: ./backend
+    build: ./Backend
     ports:
-      - "5000:5000"  # Optional for debugging
+      - "5000:5000"
     environment:
-      - DB_HOST=database
-      - DB_PORT=27017
-      - DB_NAME=mydb
-      - DB_USER=myuser
-      - DB_PASSWORD=mypassword
+      - MONGODB_URI=mongodb://mongodb:27017/todoapp
     depends_on:
-      - database
+      - mongodb
 
-  database:
-    build: ./database
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
     volumes:
-      - db-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
-      - MONGO_INITDB_DATABASE=mydb
+      - mongodb_data:/data/db
 
 volumes:
-  db-data:
+  mongodb_data:

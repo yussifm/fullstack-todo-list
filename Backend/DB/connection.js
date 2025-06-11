@@ -1,18 +1,15 @@
 import mongoose from "mongoose";
 
-// var db = "mongodb://localhost:27017/Main?authMechanism=DEFAULT&authSource=admin";
-var db = "mongodb://localhost:27017";
+const db = "mongodb://mongodb:27017/todoapp";
 
 const connectDb = () => {
   return mongoose
-    //.connect(`${process.env.DB}`)
-    // .connect(`${db}`)
-    .connect(`mongodb://mongo-shared-dev:fikTpih4U2!@20.218.241.192:27017/?directConnection=true&appName=mongosh+1.8.2&authMechanism=DEFAULT`)
+    .connect(db)
     .then(() => {
-      console.log("connected");
+      console.log("Connected to MongoDB");
     })
     .catch((err) => {
-      console.log("catch error", err);
+      console.log("MongoDB connection error:", err);
     });
 };
 
