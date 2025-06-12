@@ -21,3 +21,10 @@
 - **Application not loading**: Check container status with `docker-compose ps`.
 - **Backend issues**: View logs with `docker-compose logs backend`.
 - **Frontend issues**: Check logs with `docker-compose logs frontend`.
+
+### To run test on Windows 
+`test-containers.bat`
+
+
+### To run test on Linux/Mac
+`./test-containers.sh`

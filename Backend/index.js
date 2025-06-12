@@ -20,7 +20,7 @@ import mongoose from "mongoose";
 //const cors = require('cors'); // Import CORS
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 // Use CORS Middleware
 app.use(cors());
@@ -29,7 +29,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection URI
-const MONGO_URI = 'mongodb://127.0.0.1:27017';
+const MONGO_URI = 'mongodb://localhost:27017/todoapp';
 //const MONGO_URI = 'mongodb://mongo-shared-dev:fikTpih4U2!@20.218.241.192:27017/?directConnection=true&appName=mongosh+1.8.2&authMechanism=DEFAULT';
 
 const dbname = 'todos';
