@@ -8,7 +8,7 @@ const useUpdateTodo = (setTodos) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `https://fullstack-todolist-upnv.onrender.com/todos/${todo._id}`,
+        `http://localhost:5000/todos/${todo._id}`,
         {
           method: "PUT",
           headers: {
